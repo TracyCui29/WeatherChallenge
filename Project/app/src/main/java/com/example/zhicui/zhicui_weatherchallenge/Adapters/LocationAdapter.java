@@ -7,31 +7,30 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.zhicui.zhicui_weatherchallenge.Location;
+import com.example.zhicui.zhicui_weatherchallenge.City;
 import com.example.zhicui.zhicui_weatherchallenge.R;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class LocationAdapter extends BaseAdapter {
 
     //Adapter of home page adapter
     Context mContext;
     LocationClickListener mListener;
-    ArrayList<Location> mLocations;
+    ArrayList<City> mLocations;
     long BASE_ID = 0x01001;
 
     //constructor
-    public LocationAdapter(Context mContext, LocationClickListener mListener, ArrayList<Location> mLocations) {
+    public LocationAdapter(Context mContext, LocationClickListener mListener, ArrayList<City> mLocations) {
         this.mContext = mContext;
         this.mListener = mListener;
         this.mLocations = mLocations;
     }
 
     public interface LocationClickListener{
-        void locationClick();
-        void deleteClick(Location location);
+        void locationClick(City location);
+        void deleteClick(City location);
     }
 
     @Override
@@ -41,7 +40,7 @@ public class LocationAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        if(mLocations != null && position >= 0 || position < mLocations.size()){
+        if(mLocations != null && position >= 0 || position < Objects.requireNonNull(mLocations).size()){
             return mLocations.get(position);
         }
         return null;
@@ -58,7 +57,7 @@ public class LocationAdapter extends BaseAdapter {
 
         ViewHolder vh;
 
-        if(convertView != null){
+        if(convertView == null){
             convertView = LayoutInflater.from(mContext).inflate(R.layout.adapter_location,parent,false);
             vh = new ViewHolder(convertView);
             convertView.setTag(vh);
@@ -68,8 +67,14 @@ public class LocationAdapter extends BaseAdapter {
         }
         //Set text
         vh.vh_city.setText(mLocations.get(position).getCity());
-        vh.vh_temp.setText(mLocations.get(position).getTemp());
-
+        //Click City
+        vh.vh_city.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.locationClick(mLocations.get(position));
+            }
+        });
+        //Click Delete
         vh.vh_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,11 +87,11 @@ public class LocationAdapter extends BaseAdapter {
 
 
     static class ViewHolder{
-        TextView vh_city,vh_temp,vh_delete;
+        TextView vh_city,vh_delete;
 
         ViewHolder(View layout){
             vh_city = layout.findViewById(R.id.city_text_ad);
-            vh_temp = layout.findViewById(R.id.temp_text_ad);
+            //vh_temp = layout.findViewById(R.id.temp_text_ad);
             vh_delete = layout.findViewById(R.id.delete_text_ad);
         }
     }

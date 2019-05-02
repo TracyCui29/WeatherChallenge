@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="70dp"
+    android:layout_height="60dp"
     android:weightSum="100">
 
     <TextView
@@ -11,35 +11,27 @@
         android:layout_gravity="center"
 
         android:layout_marginStart="15dp"
-        android:layout_weight="75"
+        android:layout_weight="90"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:text="Orlando"
-        android:textSize="24sp" />
+        android:lines="1"
+        android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/temp_text_ad"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-
-        android:layout_weight="15"
-        android:text="30°"
-        android:textColor="@color/lightGray"
-        android:textSize="22sp" />
 
     <TextView
         android:id="@+id/delete_text_ad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:gravity="center"
-
         android:layout_weight="10"
-        android:padding="20dp"
-        android:text="x"
-        android:focusable="true"
+
         android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="x"
         android:textColor="@color/lightGray"
-        android:textSize="20sp" />
+        android:textSize="16sp" />
 
 </LinearLayout>

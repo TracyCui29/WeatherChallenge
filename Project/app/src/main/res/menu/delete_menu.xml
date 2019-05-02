@@ -5,6 +5,6 @@
 
     <item
         android:id="@+id/delete_btn_menu"
-        android:title="Delete"
+        android:title="Remove"
         app:showAsAction="always" />
 </menu>

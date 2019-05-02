@@ -8,6 +8,7 @@
 
 
     <ListView
+        android:id="@+id/list_location_main"
         android:layout_width="match_parent"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -16,4 +17,13 @@
 
 
     </ListView>
+
+    <TextView
+        android:id="@+id/text_nodata_main"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:text="No saved weather yet, click '+' add one"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </android.support.constraint.ConstraintLayout>
