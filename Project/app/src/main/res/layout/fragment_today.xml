@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="8dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary"
+    tools:context=".Fragments.TodayFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/date_tv_today"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:lines="1"
+        android:textColor="@color/ultraGray"
+        android:text="Wednesday, May 1" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:weightSum="100"
+        android:gravity="center"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/temp_tv_today"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="45"
+            android:gravity="center"
+
+            android:lines="1"
+            android:text="99"
+            android:textColor="@color/white"
+            android:textSize="50sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_weight="55"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/city_tv_today"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="60"
+                android:gravity="center_vertical"
+
+                android:lines="1"
+                android:text="Orlando"
+                android:textAlignment="textStart"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/weather_tv_today"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+
+                android:layout_weight="40"
+                android:lines="1"
+                android:text="Party Cloud"
+                android:textAlignment="textStart"
+                android:textColor="@color/ultraGray"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:background="@color/lightGray"
+        android:layout_height="1dp"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_weight="100"
+        android:baselineAligned="false">
+
+        <LinearLayout
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="33"
+            android:layout_width="0dp"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/hint_today"
+                android:layout_gravity="center"
+                android:text="Humidity"/>
+            <TextView
+                style="@style/hint_today"
+                android:id="@+id/humidity_tv_today"
+                android:textSize="20sp"
+                android:text="100"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="33"
+            android:layout_width="0dp"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/hint_today"
+                android:layout_gravity="center"
+                android:text="Wind Info"/>
+            <TextView
+                style="@style/hint_today"
+                android:id="@+id/wind_tv_today"
+                android:textSize="20sp"
+                android:text="100"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="33"
+            android:layout_width="0dp"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/hint_today"
+                android:layout_gravity="center"
+                android:text="Rain Chance"/>
+            <TextView
+                style="@style/hint_today"
+                android:id="@+id/rain_tv_today"
+                android:textSize="20sp"
+                android:text="100"/>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
