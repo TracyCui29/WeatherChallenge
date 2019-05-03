@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements LocationAdapter.L
 
     ListView location_lv;
     TextView noData_tv;
+    City cityClicked;
     //for read data
     ArrayList<City> cityArrayList = new ArrayList<>();
 
@@ -115,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements LocationAdapter.L
 
     @Override
     public void locationClick(City city) {
-
+        cityClicked = city;
         WeatherAsyncTask asy = new WeatherAsyncTask(this);
         String web = "http://api.openweathermap.org/data/2.5/forecast?&lat="+city.lat+"&lon="+city.lon+"&&units=imperial&APPID=6d88e52ea278672765eaf276b4bc39c4";
         asy.execute(web);
@@ -157,8 +158,15 @@ public class MainActivity extends AppCompatActivity implements LocationAdapter.L
     @Override
     public void onFinish(ArrayList<Weather> weather) {
         //after download goto detail
-        Intent gotoDetail = new Intent(this, DetailActivity.class);
-        gotoDetail.putExtra(MethodsKeys.EXTRA_CITY,weather);
-        startActivity(gotoDetail);
+        if(MethodsKeys.isConnected(this)){
+            Intent gotoDetail = new Intent(this, DetailActivity.class);
+            gotoDetail.putExtra(MethodsKeys.EXTRA_WEATHERS,weather);
+            gotoDetail.putExtra(MethodsKeys.EXTRA_CITY_NAME,cityClicked.city);
+            startActivity(gotoDetail);
+        }
+        else {
+            Toast.makeText(this, "Please Check network Connection!", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }

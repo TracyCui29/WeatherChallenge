@@ -3,17 +3,18 @@ package com.example.zhicui.zhicui_weatherchallenge;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-
-import com.google.android.gms.common.util.IOUtils;
-
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 import java.util.Objects;
 
 public class MethodsKeys {
 
     public static final String EXTRA_CITY = "EXTRA_CITY";
+    public static final String EXTRA_CITY_NAME = "EXTRA_CITY_NAME";
+    public static final String EXTRA_WEATHERS = "EXTRA_WEATHERS";
     public static final String FILENAME = "mapChallenge.txt";
 
 
@@ -71,6 +72,33 @@ public class MethodsKeys {
         }
         return data;
     }
+
+
+    //format date
+    public static String reformatDate(String d){
+        java.util.Date date = new java.util.Date(Long.decode(d)*1000L);
+        SimpleDateFormat spf = new SimpleDateFormat("MMMM dd",Locale.US);
+        String dateString = spf.format(date);
+        return dateString;
+
+    }
+
+
+    //format tem
+    public static String reformatTemp(String temp){
+
+        String tempString;
+        if(temp.contains(".")){
+            tempString = temp.substring(0,temp.indexOf("."));
+        }
+        else {
+            tempString = temp;
+        }
+        return tempString+ "°";
+
+    }
+
+
 
 
 }

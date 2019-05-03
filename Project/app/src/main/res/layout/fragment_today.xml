@@ -6,19 +6,46 @@
     android:layout_marginTop="8dp"
     android:layout_marginStart="16dp"
     android:layout_marginEnd="16dp"
+    android:layout_marginBottom="8dp"
     android:orientation="vertical"
     android:background="@color/colorPrimary"
     tools:context=".Fragments.TodayFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/date_tv_today"
+
+    <LinearLayout
+        android:weightSum="100"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:lines="1"
-        android:textColor="@color/ultraGray"
-        android:text="Wednesday, May 1" />
+        >
+
+        <TextView
+
+            android:id="@+id/date_tv_today"
+            android:layout_weight="70"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:lines="1"
+            android:textColor="@color/ultraGray"
+            android:text="Wednesday, May 1" />
+
+        <TextView
+            android:layout_weight="30"
+            android:id="@+id/temMaxMin_today"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:text="70   80"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textColor="@color/ultraGray"
+            android:lines="1"/>
+
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:orientation="horizontal"
@@ -33,17 +60,17 @@
             android:id="@+id/temp_tv_today"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="45"
+            android:layout_weight="55"
             android:gravity="center"
 
             android:lines="1"
             android:text="99"
             android:textColor="@color/white"
-            android:textSize="50sp"
+            android:textSize="48sp"
             android:textStyle="bold" />
 
         <LinearLayout
-            android:layout_weight="55"
+            android:layout_weight="45"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -58,9 +85,8 @@
 
                 android:lines="1"
                 android:text="Orlando"
-                android:textAlignment="textStart"
                 android:textColor="@color/white"
-                android:textSize="30sp"
+                android:textSize="24sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -71,10 +97,10 @@
 
                 android:layout_weight="40"
                 android:lines="1"
+
                 android:text="Party Cloud"
-                android:textAlignment="textStart"
                 android:textColor="@color/ultraGray"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
         </LinearLayout>
 
     </LinearLayout>
@@ -119,10 +145,11 @@
             android:layout_width="0dp"
             android:orientation="vertical"
             android:layout_height="wrap_content">
+
             <TextView
                 style="@style/hint_today"
                 android:layout_gravity="center"
-                android:text="Wind Info"/>
+                android:text="Wind Speed" />
             <TextView
                 style="@style/hint_today"
                 android:id="@+id/wind_tv_today"
@@ -138,10 +165,11 @@
             android:layout_width="0dp"
             android:orientation="vertical"
             android:layout_height="wrap_content">
+
             <TextView
                 style="@style/hint_today"
                 android:layout_gravity="center"
-                android:text="Rain Chance"/>
+                android:text="Rain Volume" />
             <TextView
                 style="@style/hint_today"
                 android:id="@+id/rain_tv_today"
