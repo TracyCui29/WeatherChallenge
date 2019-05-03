@@ -2,7 +2,9 @@ package com.example.zhicui.zhicui_weatherchallenge;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,11 +30,13 @@ public class MainActivity extends AppCompatActivity implements LocationAdapter.L
 
     private static final String TAG = "MainActivity";
 
-    ListView location_lv;
-    TextView noData_tv;
-    City cityClicked;
+    private ListView location_lv;
+    private TextView noData_tv;
+    private City cityClicked;
+
+    private SharedPreferences preferences;
     //for read data
-    ArrayList<City> cityArrayList = new ArrayList<>();
+    private ArrayList<City> cityArrayList = new ArrayList<>();
 
 
     @Override
@@ -40,23 +44,31 @@ public class MainActivity extends AppCompatActivity implements LocationAdapter.L
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.apply();
+
+        setTitle("Home");
         location_lv = findViewById(R.id.list_location_main);
         noData_tv = findViewById(R.id.text_nodata_main);
+
+        //read saved data from local
         GetSerializable();
         Log.i(TAG, "onCreate: " + cityArrayList.size());
 
+        //update list view
         reloadList();
     }
 
 
     //MENU
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater mif = getMenuInflater();
         mif.inflate(R.menu.add_menu,menu);
         return true;
     }
+
 
     //MENU
     @Override
@@ -72,9 +84,22 @@ public class MainActivity extends AppCompatActivity implements LocationAdapter.L
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                         101);
             }else {
-                Intent gotoMap = new Intent(this,MapsActivity.class);
-                startActivity(gotoMap);
+                //check network connection
+                if(MethodsKeys.isConnected(this)){
+                    Intent gotoMap = new Intent(this,MapsActivity.class);
+                    startActivity(gotoMap);
+                }
+                else {
+                    Toast.makeText(this, "Please check network connectio ", Toast.LENGTH_SHORT).show();
+
+                }
+
             }
+        }
+        //setting action
+        else if(item.getItemId() == R.id.setting_btn_menu){
+            Intent gotoSetting = new Intent(this,SettingActivity.class);
+            startActivity(gotoSetting);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -118,20 +143,31 @@ public class MainActivity extends AppCompatActivity implements LocationAdapter.L
     public void locationClick(City city) {
         cityClicked = city;
         WeatherAsyncTask asy = new WeatherAsyncTask(this);
-        String web = "http://api.openweathermap.org/data/2.5/forecast?&lat="+city.lat+"&lon="+city.lon+"&&units=imperial&APPID=6d88e52ea278672765eaf276b4bc39c4";
+        String web;
+
+        //update units parameter
+        if(preferences.getString(MethodsKeys.PREFERENCE_UNIT, "f").equals("f")){
+            web = "http://api.openweathermap.org/data/2.5/forecast?&lat="+city.lat+"&lon="+city.lon+"&&units=imperial&APPID=6d88e52ea278672765eaf276b4bc39c4";
+        }
+        else {
+            web = "http://api.openweathermap.org/data/2.5/forecast?&lat="+city.lat+"&lon="+city.lon+"&&units=metric&APPID=6d88e52ea278672765eaf276b4bc39c4";
+        }
+
         asy.execute(web);
     }
 
+    //Delete saved city
     @Override
     public void deleteClick(City location) {
-        Toast.makeText(this, location.city, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Removed "+ location.city, Toast.LENGTH_SHORT).show();
         cityArrayList.remove(location);
         SaveSerializable(cityArrayList);
         reloadList();
 
     }
 
-    public void reloadList(){
+
+    private void reloadList(){
         //Check empty list and give feedback
         if(cityArrayList.size()>0){
             withData();
@@ -141,15 +177,14 @@ public class MainActivity extends AppCompatActivity implements LocationAdapter.L
         else {
             noData();
         }
-
     }
 
-    public void withData(){
+    private void withData(){
         location_lv.setVisibility(View.VISIBLE);
         noData_tv.setVisibility(View.INVISIBLE);
     }
 
-    public void noData(){
+    private void noData(){
         location_lv.setVisibility(View.INVISIBLE);
         noData_tv.setVisibility(View.VISIBLE);
     }

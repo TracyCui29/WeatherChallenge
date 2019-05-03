@@ -1,7 +1,5 @@
 package com.example.zhicui.zhicui_weatherchallenge.Fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -22,9 +20,16 @@ public class TodayFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    TextView date_today,tempMaxMin,temp_today,city,weather,humidity,wind,rain;
-    Weather weatherInfo;
-    String cityname;
+    private TextView date_today;
+    private TextView tempMaxMin;
+    private TextView temp_today;
+    private TextView city;
+    private TextView weather;
+    private TextView humidity;
+    private TextView wind;
+    private TextView rain;
+    private Weather weatherInfo;
+    private String cityname;
     public TodayFragment() {
     }
 
@@ -52,7 +57,7 @@ public class TodayFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        //    TextView date_today,tempMaxMin,temp_today,city,weather,humidity,wind,rain;
+
         if(getActivity()!=null){
             date_today = getActivity().findViewById(R.id.date_tv_today);
             tempMaxMin = getActivity().findViewById(R.id.temMaxMin_today);
@@ -65,6 +70,7 @@ public class TodayFragment extends Fragment {
 
             cityname = Objects.requireNonNull(getArguments()).getString(ARG_PARAM2);
             weatherInfo = (Weather)getArguments().getSerializable(ARG_PARAM1);
+
             //Display today weather
             if(weatherInfo!=null){
 

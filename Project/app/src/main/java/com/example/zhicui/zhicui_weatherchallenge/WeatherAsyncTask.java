@@ -5,11 +5,12 @@ import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.util.ArrayList;
+import java.util.Objects;
 
-public class WeatherAsyncTask extends AsyncTask<String, String, ArrayList<Weather>> {
+class WeatherAsyncTask extends AsyncTask<String, String, ArrayList<Weather>> {
 
-    private Finished mFinishedInterface;
-    private ArrayList<Weather> weatherArrayList = new ArrayList<>();
+    private final Finished mFinishedInterface;
+    private final ArrayList<Weather> weatherArrayList = new ArrayList<>();
     private static final String TAG = "WeatherAsyncTask";
 
 
@@ -30,6 +31,7 @@ public class WeatherAsyncTask extends AsyncTask<String, String, ArrayList<Weathe
 
         String jsonData = MethodsKeys.getNetworkData(web);
 
+        //read json
         try {
 
             String temp;//
@@ -70,6 +72,7 @@ public class WeatherAsyncTask extends AsyncTask<String, String, ArrayList<Weathe
                     rain = "N/A";
                 }
 
+                //add weather
                 Weather wea = new Weather(MethodsKeys.reformatTemp(temp),MethodsKeys.reformatDate(date),temp_max,temp_min,weat,humi,rain,wind);
                 weatherArrayList.add(wea);
             }
@@ -89,16 +92,15 @@ public class WeatherAsyncTask extends AsyncTask<String, String, ArrayList<Weathe
         Log.i(TAG, "onPostExecute: " + weathers.size());
 
         ArrayList<Weather> filiteredWeathers = new ArrayList<>();
+
+
         if(mFinishedInterface!= null){
-
-
             //calculate 5 days min and max temp
             for (int i = 0; i < weathers.size()-1; i++) {
                 Weather weather1 = weathers.get(i);
                 Weather weather2 = weathers.get(i+1);
 
                 if(weather1.getDat().equals(weather2.getDat())){
-                    Log.i(TAG, "onPostExecute:  weather1.dat==weather2.dat");
                     if(Double.parseDouble(weather1.temp_min)<Double.parseDouble(weather2.temp_min)){
                         weather2.setTemp_min(weather1.temp_min);
                     }
@@ -125,16 +127,17 @@ public class WeatherAsyncTask extends AsyncTask<String, String, ArrayList<Weathe
                         filiteredWeathers.add(weather1);
                     }
                     else {
-                    Weather we = new Weather(weather1.getTemp(),weather1.getDat(),weather1.getTemp_max(),weather1.getTemp_min(),weather1.getWeat(),weather1.getHumi(),weather1.getRain(),weather1.getWind());
-                    filiteredWeathers.add(we);
-                     }
+                        Weather we = new Weather(weather1.getTemp(),weather1.getDat(),weather1.getTemp_max(),weather1.getTemp_min(),weather1.getWeat(),weather1.getHumi(),weather1.getRain(),weather1.getWind());
+                        filiteredWeathers.add(we);
+                    }
                 }
-                }
-
             }
-            //add last weather
-            Weather we = new Weather(weathers.get(39).getTemp(),weathers.get(39).getDat(),weathers.get(39).getTemp_max(),weathers.get(39).getTemp_min(),weathers.get(39).getWeat(),weathers.get(39).getHumi(),weathers.get(39).getRain(),weathers.get(39).getWind());
-            filiteredWeathers.add(we);
-            mFinishedInterface.onFinish(filiteredWeathers);
+
         }
+
+        //add last weather as last day
+        Weather we = new Weather(weathers.get(39).getTemp(),weathers.get(39).getDat(),weathers.get(39).getTemp_max(),weathers.get(39).getTemp_min(),weathers.get(39).getWeat(),weathers.get(39).getHumi(),weathers.get(39).getRain(),weathers.get(39).getWind());
+        filiteredWeathers.add(we);
+        Objects.requireNonNull(mFinishedInterface).onFinish(filiteredWeathers);
     }
+}

@@ -16,10 +16,10 @@ import java.util.Objects;
 public class LocationAdapter extends BaseAdapter {
 
     //Adapter of home page adapter
-    Context mContext;
-    LocationClickListener mListener;
-    ArrayList<City> mLocations;
-    long BASE_ID = 0x01001;
+    private final Context mContext;
+    private final LocationClickListener mListener;
+    private final ArrayList<City> mLocations;
+    private final long BASE_ID = 0x01001;
 
     //constructor
     public LocationAdapter(Context mContext, LocationClickListener mListener, ArrayList<City> mLocations) {
@@ -87,7 +87,8 @@ public class LocationAdapter extends BaseAdapter {
 
 
     static class ViewHolder{
-        TextView vh_city,vh_delete;
+        final TextView vh_city;
+        final TextView vh_delete;
 
         ViewHolder(View layout){
             vh_city = layout.findViewById(R.id.city_text_ad);

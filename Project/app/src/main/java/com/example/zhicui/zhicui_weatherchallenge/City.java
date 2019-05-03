@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 public class City implements Serializable {
 
-    String city;
-    Double lat;
-    Double lon;
+    final String city;
+    final Double lat;
+    final Double lon;
 
     public City(String city, Double lat, Double lon) {
         this.city = city;

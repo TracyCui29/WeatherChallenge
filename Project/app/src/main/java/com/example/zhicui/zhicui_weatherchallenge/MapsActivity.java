@@ -38,11 +38,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private static final String TAG = "MapsActivity";
     private GoogleMap mMap;
-    Location currentLocation;
-    LatLng latLng;
-    ArrayList<City> cityArrayList = new ArrayList<>();
-    FusedLocationProviderClient fusedLocationProviderClient;
-    int REQUEST_LOCATION = 101;
+    private Location currentLocation;
+    private LatLng latLng;
+    private ArrayList<City> cityArrayList = new ArrayList<>();
+    private FusedLocationProviderClient fusedLocationProviderClient;
+    private final int REQUEST_LOCATION = 101;
 
 
     @Override
@@ -83,7 +83,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                     }
                     else {
-                        Toast.makeText(MapsActivity.this, "NO LOCATION", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MapsActivity.this, "Please check network connection!", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -109,21 +109,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onMapClick(LatLng latLng) {
                 //each time with one pin
                 mMap.clear();
-                Log.i(TAG, "Lat: " + latLng.latitude  + "Long: " + latLng.longitude);
                 // Setting the position for the marker
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(latLng);
                 final City city = getCity(latLng);
 
-                //0 - zip code
-                //1 - city name
                 if(city.city.contains("known")){
                     markerOptions.title("Unknown city, try other place");
                 }
                 else {
-                    markerOptions.title("Click to store "+city.city + " weather");
+                    markerOptions.title("Click to save "+city.city + " weather");
                 }
-                mMap.addMarker(markerOptions);
+                //add and show marker
+                mMap.addMarker(markerOptions).showInfoWindow();
 
                 //set click action
                 mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
@@ -151,10 +149,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
     }
 
-    public City getCity(LatLng latLng){
+
+    //get city name
+    private City getCity(LatLng latLng){
 
         Geocoder gcd = new Geocoder(MapsActivity.this, Locale.getDefault());
-        String cit = "";
+        String cit;
 
         try {
 
@@ -181,6 +181,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return new City(cit,latLng.latitude,latLng.longitude);
 
     }
+
 
     //Save city
     private void SaveSerializable(ArrayList<City> _newsArrayList){

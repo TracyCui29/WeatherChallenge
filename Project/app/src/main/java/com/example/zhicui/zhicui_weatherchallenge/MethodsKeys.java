@@ -15,6 +15,9 @@ public class MethodsKeys {
     public static final String EXTRA_CITY = "EXTRA_CITY";
     public static final String EXTRA_CITY_NAME = "EXTRA_CITY_NAME";
     public static final String EXTRA_WEATHERS = "EXTRA_WEATHERS";
+
+    public static final String PREFERENCE_UNIT = "PREFERENCE_UNIT";
+
     public static final String FILENAME = "mapChallenge.txt";
 
 
@@ -78,8 +81,7 @@ public class MethodsKeys {
     public static String reformatDate(String d){
         java.util.Date date = new java.util.Date(Long.decode(d)*1000L);
         SimpleDateFormat spf = new SimpleDateFormat("MMMM dd",Locale.US);
-        String dateString = spf.format(date);
-        return dateString;
+        return spf.format(date);
 
     }
 

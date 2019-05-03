@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="8dp"
     android:layout_marginStart="16dp"
     android:layout_marginEnd="16dp"
     android:layout_marginBottom="8dp"
@@ -60,18 +59,18 @@
             android:id="@+id/temp_tv_today"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="55"
+            android:layout_weight="30"
             android:gravity="center"
 
             android:lines="1"
             android:text="99"
             android:textColor="@color/white"
-            android:textSize="48sp"
+            android:textSize="50sp"
             android:textStyle="bold" />
 
         <LinearLayout
-            android:layout_weight="45"
-            android:layout_width="wrap_content"
+            android:layout_weight="70"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:weightSum="100">

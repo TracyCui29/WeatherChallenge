@@ -16,10 +16,10 @@ import java.util.Objects;
 
 public class WeatherAdapter extends BaseAdapter {
 
-    long BASE_ID = 0x01001;
+    private final long BASE_ID = 0x01001;
 
-    Context mContext;
-    ArrayList<Weather> mWeathers;
+    private final Context mContext;
+    private final ArrayList<Weather> mWeathers;
 
     public WeatherAdapter(Context mContext, ArrayList<Weather> mWeathers) {
         this.mContext = mContext;
@@ -31,6 +31,7 @@ public class WeatherAdapter extends BaseAdapter {
         return mWeathers.size();
     }
 
+
     @Override
     public Object getItem(int position) {
         if(mWeathers != null && position >= 0 || position < Objects.requireNonNull(mWeathers).size()){
@@ -39,10 +40,12 @@ public class WeatherAdapter extends BaseAdapter {
         return null;
     }
 
+
     @Override
     public long getItemId(int position) {
         return BASE_ID+position;
     }
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -70,9 +73,13 @@ public class WeatherAdapter extends BaseAdapter {
     }
 
 
-
     static class ViewHolder{
-        TextView vh_date,vh_minmax,vh_humi,vh_wind,vh_rain;
+        final TextView vh_date;
+        final TextView vh_minmax;
+        final TextView vh_humi;
+        final TextView vh_wind;
+        final TextView vh_rain;
+
 
         ViewHolder(View layout){
             vh_date = layout.findViewById(R.id.date_tv_ad_wea);

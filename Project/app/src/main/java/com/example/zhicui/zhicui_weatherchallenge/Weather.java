@@ -4,15 +4,15 @@ import java.io.Serializable;
 
 public class Weather implements Serializable {
 
-    String temp;//
-    String dat;//
+    private String temp;//
+    private String dat;//
     String temp_max;//
     String temp_min;//
     //String city;//
-    String weat;//
-    String humi;//
-    String rain;//
-    String wind;//
+    private String weat;//
+    private String humi;//
+    private String rain;//
+    private String wind;//
 
     public Weather(String temp, String dat, String temp_max, String temp_min, String weat, String humi, String rain, String wind) {
         this.temp = temp;
